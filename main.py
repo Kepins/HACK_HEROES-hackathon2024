@@ -2,7 +2,7 @@ from draw_on_map import Point, PathDrawer
 from hall_factory import generate_nodes
 from graphs import Graph
 from magazine_map import MagazineMap
-
+from session import db
 
 def main():
     nodes, doors = generate_nodes()
