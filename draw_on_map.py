@@ -39,12 +39,7 @@ class PathDrawer:
         pixel_endpoint = self._convert_to_pixel(self.real_points[-1])
         pencil.point([pixel_endpoint.x, pixel_endpoint.y], fill="red")
 
-        # Zapisz zmieniony obraz
         output_path = "temp_path_png/output_image.png"
         image.save(output_path)
 
         image.close()
-
-
-p = PathDrawer(real_points=[Point(x=3, y=2.3), Point(x=6, y=2.3), Point(x=9, y=2.3), Point(x=12, y=2.3), Point(x=15, y=2.3), Point(x=15, y=6.9), Point(x=15, y=11.6)])
-p.draw_path()
