@@ -127,12 +127,12 @@ class FullHall(Hall):
         super().__init__(hall_id=hall_id)
         self.offset_x = offset_x
         self.offset_y = offset_y
-        self.nodes = self._generate()
-        self.rows = {}
+        self.rows = self._generate_rows()
 
-    def _generate(self):
+    def _generate_rows(self):
+        rows = {}
         prev = self._generate_row_right(y=4.6 * 6 + 2.3)
-        self.rows[1] = prev
+        rows[1] = prev
         for i in range(2, 8):
             if i % 2 == 0:
                 row = self._generate_row_left(y=4.6 * (7-i) + 2.3)
@@ -143,10 +143,11 @@ class FullHall(Hall):
             Node.connect_both_ways(prev[5], row[5])
             Node.connect_both_ways(prev[-1], row[0])
             prev = row
-            self.rows[i] = row
+            rows[i] = row
+        return rows
 
     def get_nodes(self):
-        return self.nodes
+        return [node for node in [r for r in self.rows.values()]]
 
     def get_row(self, row_id: int):
         return self.rows[row_id]
