@@ -10,6 +10,7 @@ def upload_form():
     return render_template('upload_form.html')
 
 
+@app.route('')
 @app.route('/upload', methods=['POST'])
 def upload():
     if 'csvFile' in request.files:

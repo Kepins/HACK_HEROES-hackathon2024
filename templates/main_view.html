@@ -2,9 +2,59 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Two Divs Layout</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        .full-width {
+            width: 100%;
+            background-color: #3498db;
+            color: #fff;
+            text-align: center;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .two-divs-container {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            margin: 20px;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+        .side-by-side {
+            width: 48%;
+            background-color: #f0f0f0;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+    </style>
 </head>
 <body>
-<p1>Shit</p1>
+
+    <div class="full-width">
+        <h1>Full Width Div</h1>
+    </div>
+
+    <div class="two-divs-container">
+        <div class="side-by-side">
+            <h2>Left Div</h2>
+        </div>
+
+        <div class="side-by-side">
+            <h2>Right Div</h2>
+        </div>
+    </div>
+
 </body>
 </html>
