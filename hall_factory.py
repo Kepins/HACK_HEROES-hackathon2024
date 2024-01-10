@@ -154,14 +154,72 @@ class FullHall(Hall):
 
 
 class PartialHall(Hall):
-    def __init__(self, offset_x: float, offset_y: float, hall_id: int):
+    def __init__(self, hall_id: int, offset_x: float, offset_y: float):
         super().__init__(hall_id=hall_id)
         self.offset_x = offset_x
         self.offset_y = offset_y
-        self.nodes = self._generate()
+        self.rows = self._generate_rows()
 
-    def _generate(self):
-        return ''
+    def _generate_partial_row_left(self, y: float):
+        node_6 = Node(x=0.75, y=y, hall=self.hall_id, shelves=[], edges=[])
+        node_5 = Node(x=3, y=y, hall=self.hall_id, shelves=[15, 16], edges=[])
+        node_4 = Node(x=6, y=y, hall=self.hall_id, shelves=[13, 14], edges=[])
+        node_3 = Node(x=9, y=y, hall=self.hall_id, shelves=[11, 12], edges=[])
+        node_2 = Node(x=12, y=y, hall=self.hall_id, shelves=[9, 10], edges=[])
+        node_1 = Node(x=15, y=y, hall=self.hall_id, shelves=[], edges=[])
+
+        row = [node_1, node_2, node_3, node_4, node_5, node_6]
+        for i in range(0, len(row) - 1):
+            row[i].connect(row[i + 1])
+
+        return row
+
+    def _generate_partial_row_right(self, y: float):
+        node_1 = Node(x=0.75, y=y, hall=self.hall_id, shelves=[], edges=[])
+        node_2 = Node(x=3, y=y, hall=self.hall_id, shelves=[1, 2], edges=[])
+        node_3 = Node(x=6, y=y, hall=self.hall_id, shelves=[3, 4], edges=[])
+        node_4 = Node(x=9, y=y, hall=self.hall_id, shelves=[5, 6], edges=[])
+        node_5 = Node(x=12, y=y, hall=self.hall_id, shelves=[7, 8], edges=[])
+        node_6 = Node(x=15, y=y, hall=self.hall_id, shelves=[], edges=[])
+
+        row = [node_1, node_2, node_3, node_4, node_5, node_6]
+        for i in range(0, len(row) - 1):
+            row[i].connect(row[i + 1])
+
+        return row
+
+    def _generate_rows(self):
+        rows = {}
+        prev = self._generate_row_right(y=4.6 * 6 + 2.3)
+        rows[1] = prev
+        for i in range(2, 5):
+            if i % 2 == 0:
+                row = self._generate_row_left(y=4.6 * (7 - i) + 2.3)
+            else:
+                row = self._generate_row_right(y=4.6 * (7 - i) + 2.3)
+
+            Node.connect_both_ways(prev[0], row[-1])
+            Node.connect_both_ways(prev[5], row[5])
+            Node.connect_both_ways(prev[-1], row[0])
+            prev = row
+            rows[i] = row
+
+        rows[5] = self._generate_partial_row_right(y=4.6 * (7 - 5) + 2.3)
+        Node.connect_both_ways(rows[4][-1], rows[5][0])
+        Node.connect_both_ways(rows[4][5], rows[5][-1])
+
+        rows[6] = self._generate_partial_row_left(y=4.6 * (7 - 6) + 2.3)
+        Node.connect_both_ways(rows[5][-1], rows[6][0])
+        Node.connect_both_ways(rows[5][0], rows[6][-1])
+
+        rows[7] = self._generate_partial_row_right(2.3)
+        Node.connect_both_ways(rows[6][-1], rows[7][0])
+        Node.connect_both_ways(rows[6][0], rows[7][-1])
+
+        return rows
 
     def get_nodes(self):
-        return self.nodes
+        return [node for row in self.rows.values() for node in row]
+
+    def get_row(self, row_id: int):
+        return self.rows[row_id]
