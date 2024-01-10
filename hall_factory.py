@@ -75,18 +75,18 @@ class Hall:
     def __init__(self, hall_id: int):
         self.hall_id = hall_id
 
-    def _generate_row_left(self, y: float):
-        node_11 = Node(x=0.75, y=y, hall=self.hall_id, shelves=[], edges=[])
-        node_10 = Node(x=3, y=y, hall=self.hall_id, shelves=[15, 16], edges=[])
-        node_9 = Node(x=6, y=y, hall=self.hall_id, shelves=[13, 14], edges=[])
-        node_8 = Node(x=9, y=y, hall=self.hall_id, shelves=[11, 12], edges=[])
-        node_7 = Node(x=12, y=y, hall=self.hall_id, shelves=[9, 10], edges=[])
-        node_6 = Node(x=15, y=y, hall=self.hall_id, shelves=[], edges=[])
-        node_5 = Node(x=18, y=y, hall=self.hall_id, shelves=[7, 8], edges=[])
-        node_4 = Node(x=21, y=y, hall=self.hall_id, shelves=[5, 6], edges=[])
-        node_3 = Node(x=24, y=y, hall=self.hall_id, shelves=[3, 4], edges=[])
-        node_2 = Node(x=27, y=y, hall=self.hall_id, shelves=[1, 2], edges=[])
-        node_1 = Node(x=29.25, y=y, hall=self.hall_id, shelves=[], edges=[])
+    def _generate_row_left(self, y: float, lane: int):
+        node_11 = Node(x=0.75, y=y, hall=self.hall_id, shelves=[], edges=[], lane=lane)
+        node_10 = Node(x=3, y=y, hall=self.hall_id, shelves=[15, 16], edges=[], lane=lane)
+        node_9 = Node(x=6, y=y, hall=self.hall_id, shelves=[13, 14], edges=[], lane=lane)
+        node_8 = Node(x=9, y=y, hall=self.hall_id, shelves=[11, 12], edges=[], lane=lane)
+        node_7 = Node(x=12, y=y, hall=self.hall_id, shelves=[9, 10], edges=[], lane=lane)
+        node_6 = Node(x=15, y=y, hall=self.hall_id, shelves=[], edges=[], lane=lane)
+        node_5 = Node(x=18, y=y, hall=self.hall_id, shelves=[7, 8], edges=[], lane=lane)
+        node_4 = Node(x=21, y=y, hall=self.hall_id, shelves=[5, 6], edges=[], lane=lane)
+        node_3 = Node(x=24, y=y, hall=self.hall_id, shelves=[3, 4], edges=[], lane=lane)
+        node_2 = Node(x=27, y=y, hall=self.hall_id, shelves=[1, 2], edges=[], lane=lane)
+        node_1 = Node(x=29.25, y=y, hall=self.hall_id, shelves=[], edges=[], lane=lane)
 
         row = [node_1, node_2, node_3, node_4, node_5, node_6, node_7, node_8, node_9, node_10, node_11]
         for i in range(0, len(row) - 1):
@@ -94,18 +94,18 @@ class Hall:
 
         return row
 
-    def _generate_row_right(self, y: float):
-        node_1 = Node(x=0.75, y=y, hall=self.hall_id, shelves=[], edges=[])
-        node_2 = Node(x=3, y=y, hall=self.hall_id, shelves=[1, 2], edges=[])
-        node_3 = Node(x=6, y=y, hall=self.hall_id, shelves=[3, 4], edges=[])
-        node_4 = Node(x=9, y=y, hall=self.hall_id, shelves=[5, 6], edges=[])
-        node_5 = Node(x=12, y=y, hall=self.hall_id, shelves=[7, 8], edges=[])
-        node_6 = Node(x=15, y=y, hall=self.hall_id, shelves=[], edges=[])
-        node_7 = Node(x=18, y=y, hall=self.hall_id, shelves=[9, 10], edges=[])
-        node_8 = Node(x=21, y=y, hall=self.hall_id, shelves=[11, 12], edges=[])
-        node_9 = Node(x=24, y=y, hall=self.hall_id, shelves=[13, 14], edges=[])
-        node_10 = Node(x=27, y=y, hall=self.hall_id, shelves=[15, 16], edges=[])
-        node_11 = Node(x=29.25, y=y, hall=self.hall_id, shelves=[], edges=[])
+    def _generate_row_right(self, y: float, lane: int):
+        node_1 = Node(x=0.75, y=y, hall=self.hall_id, shelves=[], edges=[], lane=lane)
+        node_2 = Node(x=3, y=y, hall=self.hall_id, shelves=[1, 2], edges=[], lane=lane)
+        node_3 = Node(x=6, y=y, hall=self.hall_id, shelves=[3, 4], edges=[], lane=lane)
+        node_4 = Node(x=9, y=y, hall=self.hall_id, shelves=[5, 6], edges=[], lane=lane)
+        node_5 = Node(x=12, y=y, hall=self.hall_id, shelves=[7, 8], edges=[], lane=lane)
+        node_6 = Node(x=15, y=y, hall=self.hall_id, shelves=[], edges=[], lane=lane)
+        node_7 = Node(x=18, y=y, hall=self.hall_id, shelves=[9, 10], edges=[], lane=lane)
+        node_8 = Node(x=21, y=y, hall=self.hall_id, shelves=[11, 12], edges=[], lane=lane)
+        node_9 = Node(x=24, y=y, hall=self.hall_id, shelves=[13, 14], edges=[], lane=lane)
+        node_10 = Node(x=27, y=y, hall=self.hall_id, shelves=[15, 16], edges=[], lane=lane)
+        node_11 = Node(x=29.25, y=y, hall=self.hall_id, shelves=[], edges=[], lane=lane)
 
         row = [node_1, node_2, node_3, node_4, node_5, node_6, node_7, node_8, node_9, node_10, node_11]
         for i in range(0, len(row) - 1):
@@ -131,13 +131,13 @@ class FullHall(Hall):
 
     def _generate_rows(self):
         rows = {}
-        prev = self._generate_row_right(y=4.6 * 6 + 2.3)
+        prev = self._generate_row_right(y=4.6 * 6 + 2.3, lane=1)
         rows[1] = prev
         for i in range(2, 8):
             if i % 2 == 0:
-                row = self._generate_row_left(y=4.6 * (7-i) + 2.3)
+                row = self._generate_row_left(y=4.6 * (7-i) + 2.3, lane=i)
             else:
-                row = self._generate_row_right(y=4.6 * (7-i) + 2.3)
+                row = self._generate_row_right(y=4.6 * (7-i) + 2.3, lane=i)
 
             Node.connect_both_ways(prev[0], row[-1])
             Node.connect_both_ways(prev[5], row[5])
@@ -167,13 +167,13 @@ class PartialHall(Hall):
         self.offset_y = offset_y
         self.rows = self._generate_rows()
 
-    def _generate_partial_row_left(self, y: float):
-        node_6 = Node(x=0.75, y=y, hall=self.hall_id, shelves=[], edges=[])
-        node_5 = Node(x=3, y=y, hall=self.hall_id, shelves=[15, 16], edges=[])
-        node_4 = Node(x=6, y=y, hall=self.hall_id, shelves=[13, 14], edges=[])
-        node_3 = Node(x=9, y=y, hall=self.hall_id, shelves=[11, 12], edges=[])
-        node_2 = Node(x=12, y=y, hall=self.hall_id, shelves=[9, 10], edges=[])
-        node_1 = Node(x=15, y=y, hall=self.hall_id, shelves=[], edges=[])
+    def _generate_partial_row_left(self, y: float, lane: int):
+        node_6 = Node(x=0.75, y=y, hall=self.hall_id, shelves=[], edges=[], lane=lane)
+        node_5 = Node(x=3, y=y, hall=self.hall_id, shelves=[7, 8], edges=[], lane=lane)
+        node_4 = Node(x=6, y=y, hall=self.hall_id, shelves=[5, 6], edges=[], lane=lane)
+        node_3 = Node(x=9, y=y, hall=self.hall_id, shelves=[3, 4], edges=[], lane=lane)
+        node_2 = Node(x=12, y=y, hall=self.hall_id, shelves=[1, 2], edges=[], lane=lane)
+        node_1 = Node(x=15, y=y, hall=self.hall_id, shelves=[], edges=[], lane=lane)
 
         row = [node_1, node_2, node_3, node_4, node_5, node_6]
         for i in range(0, len(row) - 1):
@@ -181,13 +181,13 @@ class PartialHall(Hall):
 
         return row
 
-    def _generate_partial_row_right(self, y: float):
-        node_1 = Node(x=0.75, y=y, hall=self.hall_id, shelves=[], edges=[])
-        node_2 = Node(x=3, y=y, hall=self.hall_id, shelves=[1, 2], edges=[])
-        node_3 = Node(x=6, y=y, hall=self.hall_id, shelves=[3, 4], edges=[])
-        node_4 = Node(x=9, y=y, hall=self.hall_id, shelves=[5, 6], edges=[])
-        node_5 = Node(x=12, y=y, hall=self.hall_id, shelves=[7, 8], edges=[])
-        node_6 = Node(x=15, y=y, hall=self.hall_id, shelves=[], edges=[])
+    def _generate_partial_row_right(self, y: float, lane: int):
+        node_1 = Node(x=0.75, y=y, hall=self.hall_id, shelves=[], edges=[], lane=lane)
+        node_2 = Node(x=3, y=y, hall=self.hall_id, shelves=[1, 2], edges=[], lane=lane)
+        node_3 = Node(x=6, y=y, hall=self.hall_id, shelves=[3, 4], edges=[], lane=lane)
+        node_4 = Node(x=9, y=y, hall=self.hall_id, shelves=[5, 6], edges=[], lane=lane)
+        node_5 = Node(x=12, y=y, hall=self.hall_id, shelves=[7, 8], edges=[], lane=lane)
+        node_6 = Node(x=15, y=y, hall=self.hall_id, shelves=[], edges=[], lane=lane)
 
         row = [node_1, node_2, node_3, node_4, node_5, node_6]
         for i in range(0, len(row) - 1):
@@ -197,13 +197,13 @@ class PartialHall(Hall):
 
     def _generate_rows(self):
         rows = {}
-        prev = self._generate_row_right(y=4.6 * 6 + 2.3)
+        prev = self._generate_row_right(y=4.6 * 6 + 2.3, lane=1)
         rows[1] = prev
         for i in range(2, 5):
             if i % 2 == 0:
-                row = self._generate_row_left(y=4.6 * (7 - i) + 2.3)
+                row = self._generate_row_left(y=4.6 * (7 - i) + 2.3, lane=i)
             else:
-                row = self._generate_row_right(y=4.6 * (7 - i) + 2.3)
+                row = self._generate_row_right(y=4.6 * (7 - i) + 2.3, lane=i)
 
             Node.connect_both_ways(prev[0], row[-1])
             Node.connect_both_ways(prev[5], row[5])
@@ -211,15 +211,15 @@ class PartialHall(Hall):
             prev = row
             rows[i] = row
 
-        rows[5] = self._generate_partial_row_right(y=4.6 * (7 - 5) + 2.3)
+        rows[5] = self._generate_partial_row_right(y=4.6 * (7 - 5) + 2.3, lane=5)
         Node.connect_both_ways(rows[4][-1], rows[5][0])
         Node.connect_both_ways(rows[4][5], rows[5][-1])
 
-        rows[6] = self._generate_partial_row_left(y=4.6 * (7 - 6) + 2.3)
+        rows[6] = self._generate_partial_row_left(y=4.6 * (7 - 6) + 2.3, lane=6)
         Node.connect_both_ways(rows[5][-1], rows[6][0])
         Node.connect_both_ways(rows[5][0], rows[6][-1])
 
-        rows[7] = self._generate_partial_row_right(2.3)
+        rows[7] = self._generate_partial_row_right(2.3, lane=7)
         Node.connect_both_ways(rows[6][-1], rows[7][0])
         Node.connect_both_ways(rows[6][0], rows[7][-1])
 
