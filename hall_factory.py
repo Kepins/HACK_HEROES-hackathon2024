@@ -4,12 +4,56 @@ from models import Node
 
 
 def generate_nodes():
-    hall4 = HallFactory.get_hall('full', 0, 0)
-    hall5 = HallFactory.get_hall('partial', 0, 0)
-    hall3 = HallFactory.get_hall('full', 0, 0)
-    hall2 = HallFactory.get_hall('full', 0, 0)
-    hall1 = HallFactory.get_hall('partial', 0, 0)
+    HALL_WIDTH = 30.0
+    HALL_HEIGHT = 32.2
 
+    hall4 = HallFactory.get_hall('full', 0, 0)
+    hall5 = HallFactory.get_hall('partial', HALL_WIDTH, 0)
+    hall2 = HallFactory.get_hall('full', 0, HALL_HEIGHT)
+    hall3 = HallFactory.get_hall('full', HALL_WIDTH, HALL_HEIGHT)
+    hall1 = HallFactory.get_hall('partial', HALL_WIDTH, HALL_HEIGHT * 2)
+
+    # join hall 4 with 5
+    node_from_4 = hall4.get_row(2)[0]
+    node_from_5 = hall5.get_row(2)[-1]
+
+    node_from_5.connect(node_from_4)
+
+    node_from_5 = hall5.get_row(5)[0]
+    node_from_4 = hall4.get_row(5)[-1]
+
+    node_from_4.connect(node_from_5)
+
+    # join hall 2 with 3
+    node_from_2 = hall2.get_row(2)[0]
+    node_from_3 = hall3.get_row(2)[-1]
+
+    node_from_3.connect(node_from_2)
+
+    node_from_3 = hall3.get_row(5)[0]
+    node_from_2 = hall2.get_row(5)[-1]
+
+    node_from_2.connect(node_from_3)
+
+    # join hall 2 with 4
+    node_from_2 = hall2.get_row(7)[5]
+    node_from_4 = hall4.get_row(1)[5]
+
+    Node.connect_both_ways(node_from_2, node_from_4)
+
+    # join hall 3 with 5
+    node_from_3 = hall3.get_row(7)[5]
+    node_from_5 = hall5.get_row(1)[5]
+
+    Node.connect_both_ways(node_from_3, node_from_5)
+
+    # join hall 1 with 3
+    node_from_1 = hall1.get_row(7)[5]
+    node_from_3 = hall3.get_row(1)[5]
+
+    Node.connect_both_ways(node_from_1, node_from_3)
+
+    return hall1.get_nodes() + hall2.get_nodes() + hall3.get_nodes() + hall4.get_nodes() + hall5.get_nodes()
 
 
 class HallFactory:
