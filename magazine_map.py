@@ -21,3 +21,6 @@ class MagazineMap:
             magazine[row['ID Produktu']] = filtered_nodes
 
         return magazine
+
+    def get_node(self, item_id: int):
+        return self.magazine[item_id]
