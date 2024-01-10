@@ -19,8 +19,8 @@ def generate_nodes():
 
     node_from_5.connect(node_from_4)
 
-    node_from_5 = hall5.get_row(5)[-1]
-    node_from_4 = hall4.get_row(5)[0]
+    node_from_5 = hall5.get_row(5)[0]
+    node_from_4 = hall4.get_row(5)[-1]
 
     node_from_4.connect(node_from_5)
 
@@ -30,8 +30,8 @@ def generate_nodes():
 
     node_from_3.connect(node_from_2)
 
-    node_from_3 = hall3.get_row(5)[-1]
-    node_from_2 = hall2.get_row(5)[0]
+    node_from_3 = hall3.get_row(5)[0]
+    node_from_2 = hall2.get_row(5)[-1]
 
     node_from_2.connect(node_from_3)
 
