@@ -7,6 +7,7 @@ class Node:
     x: float
     y: float
     hall: int
+    lane: int
     shelves: list[int]
     edges: list["Edge"]
 
