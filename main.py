@@ -7,6 +7,5 @@ def main():
     nodes = generate_nodes()
     magazine = MagazineMap(nodes=nodes, csv_path='TASK-FILES/ProductsLokalization.csv')
 
-
 if __name__ == '__main__':
     main()

@@ -5,12 +5,12 @@ from models import Node
 
 class MagazineMap:
     def __init__(self, csv_path, nodes: list[Node]):
-        self.magazine = self.load_csv(csv_path=csv_path, nodes=nodes)
+        self._magazine = self.load_csv(csv_path=csv_path, nodes=nodes)
 
     def load_csv(self, csv_path: str, nodes: list[Node]):
         products = pd.read_csv(csv_path)
         magazine = {}
-        for index, row in products.iterrows():            # get localisation
+        for index, row in products.iterrows():
             localisation = row['Lokacja']
             product_hall = int(localisation[1])
             product_lane = int(localisation[2:4])
@@ -23,4 +23,4 @@ class MagazineMap:
         return magazine
 
     def get_node(self, item_id: int):
-        return self.magazine[item_id]
+        return self._magazine.get(item_id, None)
