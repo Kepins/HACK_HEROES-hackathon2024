@@ -1,11 +1,15 @@
 from abc import abstractmethod
+from collections import defaultdict, namedtuple
 
 from models import Node
 
+Door = namedtuple("Door", ["node", "halls"])
 
 def generate_nodes():
     HALL_WIDTH = 30.0
     HALL_HEIGHT = 32.2
+
+    doors = defaultdict(list)
 
     hall4 = HallFactory.get_hall('full', 0, 0, hall_id=4)
     hall5 = HallFactory.get_hall('partial', HALL_WIDTH, 0, hall_id=5)
@@ -18,42 +22,52 @@ def generate_nodes():
     node_from_5 = hall5.get_row(2)[-1]
 
     node_from_5.connect(node_from_4)
+    doors[5].append((node_from_4, [4, 2]))
 
     node_from_5 = hall5.get_row(5)[0]
     node_from_4 = hall4.get_row(5)[-1]
 
     node_from_4.connect(node_from_5)
+    doors[4].append((node_from_5, [5, 3, 1]))
 
     # join hall 2 with 3
     node_from_2 = hall2.get_row(2)[0]
     node_from_3 = hall3.get_row(2)[-1]
 
     node_from_3.connect(node_from_2)
+    doors[3].append((node_from_2, [4, 2]))
 
     node_from_3 = hall3.get_row(5)[0]
     node_from_2 = hall2.get_row(5)[-1]
 
     node_from_2.connect(node_from_3)
+    doors[2].append((node_from_3, [5, 3, 1]))
 
     # join hall 2 with 4
     node_from_2 = hall2.get_row(7)[5]
     node_from_4 = hall4.get_row(1)[5]
 
     Node.connect_both_ways(node_from_2, node_from_4)
+    doors[2].append((node_from_4, [5, 4]))
+    doors[4].append((node_from_2, [3, 2, 1]))
 
     # join hall 3 with 5
     node_from_3 = hall3.get_row(7)[5]
     node_from_5 = hall5.get_row(1)[5]
 
     Node.connect_both_ways(node_from_3, node_from_5)
+    doors[3].append((node_from_5, [5, 4]))
+    doors[5].append((node_from_3, [3, 2, 1]))
 
     # join hall 1 with 3
     node_from_1 = hall1.get_row(7)[5]
     node_from_3 = hall3.get_row(1)[5]
 
     Node.connect_both_ways(node_from_1, node_from_3)
+    doors[1].append((node_from_3, [5, 4, 3, 2]))
+    doors[3].append((node_from_1, [1]))
 
-    return hall1.get_nodes() + hall2.get_nodes() + hall3.get_nodes() + hall4.get_nodes() + hall5.get_nodes()
+    return hall1.get_nodes() + hall2.get_nodes() + hall3.get_nodes() + hall4.get_nodes() + hall5.get_nodes(), doors
 
 
 class HallFactory:
