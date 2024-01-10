@@ -144,7 +144,14 @@ class FullHall(Hall):
             Node.connect_both_ways(prev[-1], row[0])
             prev = row
             rows[i] = row
+        self.transpose_nodes(rows)
         return rows
+
+    def transpose_nodes(self, rows):
+        for row in rows.values():
+            for node in row:
+                node.x = node.x + self.offset_x
+                node.y = node.y + self.offset_y
 
     def get_nodes(self):
         return [node for row in self.rows.values() for node in row]
@@ -216,7 +223,14 @@ class PartialHall(Hall):
         Node.connect_both_ways(rows[6][-1], rows[7][0])
         Node.connect_both_ways(rows[6][0], rows[7][-1])
 
+        self.transpose_nodes(rows)
         return rows
+
+    def transpose_nodes(self, rows):
+        for row in rows.values():
+            for node in row:
+                node.x = node.x + self.offset_x
+                node.y = node.y + self.offset_y
 
     def get_nodes(self):
         return [node for row in self.rows.values() for node in row]
