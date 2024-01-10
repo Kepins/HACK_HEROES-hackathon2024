@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formularz</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div id="fileUpload">
+            <form method="post" action="/">
+                <input type="file" id="fileInput" accept=".csv">
+                <button class="button" type="submit">Upload CSV</button>
+            </form>
+        </div>
+        {% if map_path and paths %}
+        <div class="two-divs-container">
+            <div id="leftColumn">
+                <img src="{{ map_path }}" alt="Map Paths" id="mapPaths", width="100%", height="100%">
+            </div>
+            <div id="rightColumn">
+                <ul class="no-bullets">
+                    {% for path in paths %}
+                    <li>{{ path }}</li>
+                    {% endfor %}
+                </ul>
+                <div class="buttons">
+                    <button class="button" onclick="goBack()">Back</button>
+                    <button class="button" onclick="goNext()">Next</button>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+   <script>
+      // Function to show image based on item
+      function showImage(item) {
+         var imagesFolder = "{{ images_folder }}";
+         var imagePath = imagesFolder + '/' + item.toLowerCase() + '.jpg';
+         document.getElementById('selectedImage').src = imagePath;
+
+         // Remove the "selected" class from all list items
+         var listItems = document.getElementById('itemList').getElementsByTagName('li');
+         for (var i = 0; i < listItems.length; i++) {
+            listItems[i].classList.remove('selected');
+         }
+
+         // Add the "selected" class to the clicked list item
+         event.target.classList.add('selected');
+      }
+
+      // Set the initial state - highlight the first item and show its image
+      window.onload = function () {
+         var firstItem = document.getElementById('itemList').getElementsByTagName('li')[0];
+         if (firstItem) {
+            firstItem.click();
+         }
+      };
+   </script>
+
+</body>
+</html>
