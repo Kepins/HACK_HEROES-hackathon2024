@@ -1,30 +1,53 @@
-import os.path
+# import os
+#
+# from flask import Flask, render_template, request, url_for, redirect
+#
+# app = Flask(__name__, template_folder='templates')
+#
+#
+# @app.route('/')
+# def main_view():
+#     image_path = request.args.get('image_path')
+#     if not image_path:
+#         image_path = r'/home/ola/HACK_HEROES-hackathon2024/TASK-FILES/RysunekTechnicznyMagazynuA4-1.png'
+#     return render_template('main_view.html', image_path=image_path)
+#
+#
+# @app.route('/upload', methods=['POST'])
+# def upload():
+#     if 'csvFile' in request.files:
+#         csv_file = request.files['csvFile']
+#         # calculate path
+#         image_path = r'/home/ola/HACK_HEROES-hackathon2024/TASK-FILES/RysunekTechnicznyMagazynuA4-1.png'
+#         return redirect(url_for('main_view', image_path=image_path))
+#     else:
+#         return 'No file uploaded'
+#
+#
+# if __name__ == '__main__':
+#     app.run(debug=True)
+from flask import Flask, render_template, request
 
-from flask import Flask, render_template, request, url_for, redirect
-
-app = Flask(__name__, template_folder='templates')
+app = Flask(__name__)
 
 
-@app.route('/')
-def upload_form():
-    return render_template('upload_form.html')
+@app.route('/<id>', methods=['GET', 'POST'])
+def index():
+    paths = []
 
+    if request.method == 'POST':
+        if 'csvFile' in request.files:
+            csv_file = request.files['csvFile']
+            # calculate path
 
-@app.route('')
-@app.route('/upload', methods=['POST'])
-def upload():
-    if 'csvFile' in request.files:
-        csv_file = request.files['csvFile']
-        # You can process the CSV file here (e.g., save it, read it, etc.)
-        return redirect(url_for('main_view'))
-    else:
-        return 'No file uploaded'
+            map_path = 'static/RysunekTechnicznyMagazynuA4-1.png'
+            paths = ['path1', 'path2']
+            paths['trace1'] =
+        # powiązanie ścieżka do pliku z trasą jaka trasa to jest
 
-
-@app.route('/main_view')
-def main_view():
-    return render_template('main_view.html')
+    return render_template('index.html', map_path=map_path, paths=paths)
 
 
 if __name__ == '__main__':
     app.run(debug=True)
+

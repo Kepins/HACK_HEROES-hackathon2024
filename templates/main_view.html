@@ -4,57 +4,134 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Two Divs Layout</title>
+    <title>Upload and Navigate</title>
     <style>
         body {
+            font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            font-family: 'Arial', sans-serif;
             background-color: #f4f4f4;
         }
 
-        .full-width {
-            width: 100%;
+        .container {
+            display: flex;
+            flex-direction: column;
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        #fileUpload {
+            padding: 20px;
             background-color: #3498db;
             color: #fff;
-            text-align: center;
-            padding: 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        #fileInput {
+            width: 70%;
+            margin-right: 20px;
         }
 
         .two-divs-container {
             display: flex;
             justify-content: space-between;
             padding: 20px;
-            margin: 20px;
-            background-color: #fff;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
         }
-        .side-by-side {
-            width: 48%;
-            background-color: #f0f0f0;
+
+        #leftColumn,
+        #rightColumn {
+            flex: 1;
             padding: 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #leftColumn {
+            background-color: #f0f0f0;
+        }
+
+        #text {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .button {
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
             border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #2980b9;
+        }
+
+        #pngDisplay {
+            max-width: 100%;
+            max-height: 100%;
         }
     </style>
 </head>
 <body>
 
-    <div class="full-width">
-        <h1>Full Width Div</h1>
+    <div class="container">
+        <div id="fileUpload">
+            <input type="file" id="fileInput" accept=".csv">
+            <button class="button" onclick="uploadCsv()">Upload CSV</button>
+        </div>
+        <div class="two-divs-container">
+            <div id="leftColumn">
+                <img src="{{ image_path }}" alt="PNG File" id="baseMap">
+            </div>
+            <div id="rightColumn">
+                <p id="text">This is the text on the right side.</p>
+                <div class="buttons">
+                    <button class="button" onclick="goBack()">Back</button>
+                    <button class="button" onclick="goNext()">Next</button>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="two-divs-container">
-        <div class="side-by-side">
-            <h2>Left Div</h2>
-        </div>
+    <script>
+        // Function to handle CSV file upload
+        function uploadCsv() {
+            const fileInput = document.getElementById('fileInput');
+            const csvFile = fileInput.files[0];
 
-        <div class="side-by-side">
-            <h2>Right Div</h2>
-        </div>
-    </div>
+            if (csvFile) {
+                alert('CSV file uploaded: ' + csvFile.name);
+            } else {
+                alert('No file selected.');
+            }
+        }
+
+        // Placeholder functions for handling "Next" and "Back" buttons
+        function goBack() {
+            alert('Go back button clicked.');
+        }
+
+        function goNext() {
+            alert('Go next button clicked.');
+        }
+    </script>
 
 </body>
 </html>
