@@ -1,0 +1,56 @@
+/* static/style.css */
+
+body {
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    background-color: #f0f0f0; /* Light grayish background */
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #ffffff; /* White container background */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+h2 {
+    color: #333333; /* Dark gray text color */
+}
+
+form {
+    margin-top: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    color: #333333; /* Dark gray text color */
+}
+
+input[type="file"] {
+    width: 80%; /* Enlarged to 80% of the container width */
+    padding: 15px; /* Increased padding for a larger appearance */
+    margin: 0 auto; /* Center horizontally */
+    display: block;
+    border: 2px dashed #cccccc; /* Light gray dashed border */
+    border-radius: 5px;
+    box-sizing: border-box; /* Include padding and border in the total width/height */
+}
+
+input[type="submit"] {
+    background-color: #27ae60; /* Green call-to-action color */
+    color: white;
+    padding: 15px 20px; /* Enlarged padding for a larger button */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px; /* Enlarged font size */
+}
+
+input[type="submit"]:hover {
+    background-color: #218c53; /* Darker green on hover */
+}
