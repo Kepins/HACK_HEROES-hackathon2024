@@ -1,6 +1,6 @@
 import pandas as pd
 
-from models import Node
+from graphs import Node
 
 
 class MagazineMap:

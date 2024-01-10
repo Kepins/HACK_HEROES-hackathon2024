@@ -1,7 +1,7 @@
 from abc import abstractmethod
 from collections import defaultdict, namedtuple
 
-from models import Node
+from graphs import Node
 
 Door = namedtuple("Door", ["node", "halls"])
 

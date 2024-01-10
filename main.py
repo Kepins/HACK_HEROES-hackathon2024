@@ -1,6 +1,6 @@
 from draw_on_map import Point, PathDrawer
 from hall_factory import generate_nodes
-from models import Graph
+from graphs import Graph
 from magazine_map import MagazineMap
 
 
