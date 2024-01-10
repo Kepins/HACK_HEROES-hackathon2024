@@ -147,7 +147,7 @@ class FullHall(Hall):
         return rows
 
     def get_nodes(self):
-        return [node for node in [r for r in self.rows.values()]]
+        return [node for row in self.rows.values() for node in row]
 
     def get_row(self, row_id: int):
         return self.rows[row_id]
