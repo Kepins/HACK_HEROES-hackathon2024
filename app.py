@@ -1,49 +1,34 @@
-# import os
-#
-# from flask import Flask, render_template, request, url_for, redirect
-#
-# app = Flask(__name__, template_folder='templates')
-#
-#
-# @app.route('/')
-# def main_view():
-#     image_path = request.args.get('image_path')
-#     if not image_path:
-#         image_path = r'/home/ola/HACK_HEROES-hackathon2024/TASK-FILES/RysunekTechnicznyMagazynuA4-1.png'
-#     return render_template('main_view.html', image_path=image_path)
-#
-#
-# @app.route('/upload', methods=['POST'])
-# def upload():
-#     if 'csvFile' in request.files:
-#         csv_file = request.files['csvFile']
-#         # calculate path
-#         image_path = r'/home/ola/HACK_HEROES-hackathon2024/TASK-FILES/RysunekTechnicznyMagazynuA4-1.png'
-#         return redirect(url_for('main_view', image_path=image_path))
-#     else:
-#         return 'No file uploaded'
-#
-#
-# if __name__ == '__main__':
-#     app.run(debug=True)
-from flask import Flask, render_template, request
+import csv
+import io
+
+import pandas
+from flask import Flask, render_template, request, redirect
 
 app = Flask(__name__)
 
+@app.route('/')
+def upload_csv():
+    return render_template('upload_form.html')
 
-@app.route('/<id>', methods=['GET', 'POST'])
-def index():
+
+@app.route('/path/', methods=['POST'])
+def paths():
     paths = []
-
+    map_path = ''
     if request.method == 'POST':
-        if 'csvFile' in request.files:
-            csv_file = request.files['csvFile']
-            # calculate path
+        if 'file' in request.files:
+            csv_file = request.files['file']
+            stream = io.StringIO(csv_file.stream.read().decode("UTF-8"), newline="")
+            csv_data = pandas.read_csv(stream)
 
-            map_path = 'static/RysunekTechnicznyMagazynuA4-1.png'
-            paths = ['path1', 'path2']
-            paths['trace1'] =
-        # powiązanie ścieżka do pliku z trasą jaka trasa to jest
+            return redirect("/paths/" + str(id))
+    return render_template('upload_form.html')
+
+
+@app.route('/paths/<id>', methods=['GET'])
+def pathsid(id):
+    paths = []
+    map_path = ''
 
     return render_template('index.html', map_path=map_path, paths=paths)
 
