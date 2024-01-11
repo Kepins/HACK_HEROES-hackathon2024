@@ -4,6 +4,7 @@ import os
 import pandas
 from flask import Flask, render_template, request, redirect
 
+from convert_csv import order_csv
 from draw_on_map import PathDrawer, Point
 from graphs import Graph
 from hall_factory import generate_nodes
@@ -40,7 +41,10 @@ def paths():
             start_node = list(filter(lambda n: (n.x==45 and n.y==75.9), nodes))[0]
             path_drawer = PathDrawer()
 
-            for idx, row in csv_data.iterrows():
+            # order by heaviest
+            csv_data_sorted = order_csv(csv_data)
+
+            for idx, row in csv_data_sorted.iterrows():
                 path_obj = Path(pick_up=row["Nazwa Produktu"], count=row["Ilość"], tour_id=tour.id, path_to_png="")
                 db.add(path_obj)
                 db.commit()
