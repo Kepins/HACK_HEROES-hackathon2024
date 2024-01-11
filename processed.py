@@ -152,10 +152,10 @@ def main():
 	while (getline(plik_b, line)):
 		bn += 1;
 	plik_b=close();
-	produkt* zamowione_produkty = new produkt[bn];
-	plik_c.open("zamowienie" + op + ".csv");
+	zamowione_produkty={}
+	plik_c=open("zamowienie" + op + ".csv");
 	iii = 0;
-	while (getline(plik_c, line)) {
+	while (getline(plik_c, line)):
 		zamowione_produkty[iii].nr = produkt_wartosci(line, 0) - 1;
 		zamowione_produkty[iii].w = lista_produktow[zamowione_produkty[iii].nr].w;
 		zamowione_produkty[iii].x = lista_produktow[zamowione_produkty[iii].nr].x / 20;
@@ -163,9 +163,8 @@ def main():
 		zamowione_produkty[iii].z = lista_produktow[zamowione_produkty[iii].nr].z / 20;
 		zamowione_produkty[iii].q = produkt_wartosci(line, 3);
 		iii += 1;
-	}
-	plik_c.close();
-	//sortowanie_ukladanie(zamowione_produkty, bn);
+
+	plik_c=close();
 	for (int i = 0; i < bn; i++) {
 		cout << zamowione_produkty[i].nr + 1 << " " << zamowione_produkty[i].w << " " << zamowione_produkty[i].x << " " << zamowione_produkty[i].y << " " << zamowione_produkty[i].z << " " << zamowione_produkty[i].q << endl;
 	}
