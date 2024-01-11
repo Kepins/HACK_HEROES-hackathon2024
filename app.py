@@ -94,7 +94,7 @@ def pathsid(id):
 
     tour = db.query(Tour).filter(Tour.id == id).first()
 
-    return render_template('index.html', paths_files=paths_files, products=products, products_number=products_number, distance=tour.distance)
+    return render_template('index.html', paths_files=paths_files, products=products, products_number=products_number, distance=round(tour.distance, 2))
 
 
 if __name__ == '__main__':

@@ -22,12 +22,9 @@
             </div>
             <div id="rightColumn">
                 <div class="info">
-                    <p1>Total distance: </p1>
-                    <p1 id="distance"> {{ distance }}</p1>
-                    <p1>Product: </p1>
-                    <p1 id="product"> {{ products[0][0] }}</p1>
-                    <p1>Number: </p1>
-                    <p1 id="number"> {{ products_number[0][0] }} </p1>
+                    <p id="distance">Total distance: {{ distance }}</p>
+                    <p id="product">Product: {{ products[0][0] }}</p>
+                    <p id="number">Number of items: {{ products_number[0][0] }} </p>
                 </div>
                 <div class="buttons">
                     <button class="button" id="backButton">Back</button>
@@ -81,8 +78,8 @@
 
         console.log(imagePath)
         document.getElementById('mapPaths').src = imagePath;
-        document.getElementById('product').innerText = product;
-        document.getElementById('number').innerText = number;
+        document.getElementById('product').innerText = "Product: " + product;
+        document.getElementById('number').innerText = "Number of items: " + number;
     }
 
     function goNext() {

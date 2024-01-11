@@ -3,6 +3,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
+    font-size: 20px;
 }
 
 .container {
@@ -101,4 +102,8 @@ body {
 .disabled-button {
     opacity: 0.5;
     cursor: not-allowed;
+}
+
+.info p {
+    margin-bottom: 10px; /* Add margin between paragraphs */
 }
