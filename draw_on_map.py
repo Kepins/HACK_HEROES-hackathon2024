@@ -35,7 +35,7 @@ class PathDrawer:
 
         # draw endpoint
         pixel_endpoint = self._convert_to_pixel(real_points[-1])
-        pencil.point([pixel_endpoint.x, pixel_endpoint.y], fill="red")
+        pencil.ellipse((pixel_endpoint.x - 15, pixel_endpoint.y - 15, pixel_endpoint.x + 15, pixel_endpoint.y + 15), fill='red', outline='red')
 
         image.save(output_image_path)
 

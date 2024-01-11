@@ -11,55 +11,61 @@
     <div class="container">
         <div id="fileUpload">
              <form action = "/path" method = "post" enctype="multipart/form-data">
-                    <input type="file" name="file" />
-                    <input type = "submit" value="Upload">
+                    <input class="button" type="file" name="file" />
+                    <input type="submit" value="Upload">
              </form>
         </div>
         {% if paths_files %}
         <div class="two-divs-container">
             <div id="leftColumn">
-                <img src="{{ paths_files[0][0] }}" alt="Map Paths" id="mapPaths", width="100%", height="100%">
+                <img src="{{ paths_files[0] }}" alt="Map Paths" id="mapPaths", width="100%", height="100%">
             </div>
             <div id="rightColumn">
-                <ul class="no-bullets">
-                    {% for path in paths %}
-                    <li>{{ path }}</li>
-                    {% endfor %}
-                </ul>
                 <div class="buttons">
-                    <button class="button" onclick="goBack()">Back</button>
-                    <button class="button" onclick="goNext()">Next</button>
+                    <button class="button" id="backButton">Back</button>
+                    <button class="button" id="nextButton">Next</button>
                 </div>
             </div>
+        </div>
         </div>
         {% endif %}
     </div>
 
-   <script>
-      // Function to show image based on item
-      function showImage(item) {
-         var imagesFolder = "{{ images_folder }}";
-         var imagePath = imagesFolder + '/' + item.toLowerCase() + '.jpg';
-         document.getElementById('selectedImage').src = imagePath;
+<script>
+    var pathItemsString = "{{ paths_files }}";
+    var pathItemsStringSplitted = pathItemsString.split(",");
+    for (let i = 0; i < pathItemsStringSplitted.length; i++) {
+        pathItemsStringSplitted[i] = pathItemsStringSplitted[i].substring(6);
+        pathItemsStringSplitted[i] = pathItemsStringSplitted[i].slice(0, -5);
+    }
+    pathItemsStringSplitted[pathItemsStringSplitted.length - 1] = pathItemsStringSplitted[pathItemsStringSplitted.length - 1].slice(0, -1);
+    var pathItems = pathItemsStringSplitted;
+    var currentIndex = 0;
 
-         // Remove the "selected" class from all list items
-         var listItems = document.getElementById('itemList').getElementsByTagName('li');
-         for (var i = 0; i < listItems.length; i++) {
-            listItems[i].classList.remove('selected');
-         }
+    function updateImage() {
+        var imagePath = pathItems[currentIndex];
+        console.log(imagePath)
+        document.getElementById('mapPaths').src = imagePath;
+    }
 
-         // Add the "selected" class to the clicked list item
-         event.target.classList.add('selected');
-      }
+    function goNext() {
+        if (currentIndex < pathItems.length - 1) {
+            currentIndex++;
+            updateImage();
+        }
+    }
 
-      // Set the initial state - highlight the first item and show its image
-      window.onload = function () {
-         var firstItem = document.getElementById('itemList').getElementsByTagName('li')[0];
-         if (firstItem) {
-            firstItem.click();
-         }
-      };
-   </script>
+    function goBack() {
+        if (currentIndex > 0) {
+            currentIndex--;
+            updateImage();
+        }
+    }
+
+    // Dodaj obsługę zdarzeń do przycisków
+    document.getElementById('nextButton').addEventListener('click', goNext);
+    document.getElementById('backButton').addEventListener('click', goBack);
+</script>
 
 </body>
 </html>
