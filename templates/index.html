@@ -21,6 +21,12 @@
                 <img src="{{ paths_files[0] }}" alt="Map Paths" id="mapPaths", width="100%", height="100%">
             </div>
             <div id="rightColumn">
+                <div class="info">
+                    <p1>Product: </p1>
+                    <p1 id="product"> {{ products[0][0] }}}</p1>
+                    <p1>Number: </p1>
+                    <p1 id="number"> {{ products_number[0][0] }} </p1>
+                </div>
                 <div class="buttons">
                     <button class="button" id="backButton">Back</button>
                     <button class="button" id="nextButton">Next</button>
@@ -33,6 +39,12 @@
 
 <script>
     var pathItemsString = "{{ paths_files }}";
+    var productsString = "{{ products }}";
+    console.log(productsString)
+    var productsNumberString = "{{ products_number }}";
+    console.log(productsNumberSplitted)
+
+    // parse paths string
     var pathItemsStringSplitted = pathItemsString.split(",");
     for (let i = 0; i < pathItemsStringSplitted.length; i++) {
         pathItemsStringSplitted[i] = pathItemsStringSplitted[i].substring(6);
@@ -40,12 +52,35 @@
     }
     pathItemsStringSplitted[pathItemsStringSplitted.length - 1] = pathItemsStringSplitted[pathItemsStringSplitted.length - 1].slice(0, -1);
     var pathItems = pathItemsStringSplitted;
+
+    // parse product string
+    var productsSplitted = productsString.split(";");
+    var productToTake = []
+    for (let i = 0; i < productsSplitted.length; i++) {
+        if (i % 2 != 0) {
+            productToTake.push(productsSplitted[i].slice(0, -4))
+        }
+    }
+
+    // parse products_number string
+    var productsNumberSplitted = productsNumberString.split(",");
+    var productNumberToTake = []
+    for (let i = 0; i < productsNumberSplitted.length; i++) {
+        if (i % 2 == 0) {
+            productNumberToTake.push(productsNumberSplitted[i].slice(2))
+        }
+    }
     var currentIndex = 0;
 
     function updateImage() {
         var imagePath = pathItems[currentIndex];
+        var product = productToTake[currentIndex];
+        var number = productNumberToTake[currentIndex];
+
         console.log(imagePath)
         document.getElementById('mapPaths').src = imagePath;
+        document.getElementById('product').innerText = product;
+        document.getElementById('number').innerText = number;
     }
 
     function goNext() {
