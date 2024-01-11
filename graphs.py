@@ -126,6 +126,7 @@ class Graph:
                 path_len = self.path_len(path_to_door) + self.path_len(path_door_to_end)
                 if path_len < best_path_len:
                     best_path = path_to_door
+                    best_path_len = path_len
                     if len(path_door_to_end) > 1:
                         best_path += path_door_to_end[1:]
 
