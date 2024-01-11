@@ -18,7 +18,7 @@ class MagazineMap:
 
             # find Nodes
             filtered_nodes = [node for node in nodes if node.hall == product_hall and node.lane == product_lane and product_shelf in node.shelves]
-            magazine[row['ID Produktu']] = filtered_nodes
+            magazine[row['ID Produktu']] = filtered_nodes[0]
 
         return magazine
 
