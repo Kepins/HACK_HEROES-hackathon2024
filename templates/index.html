@@ -11,8 +11,8 @@
     <div class="container">
         <div id="fileUpload">
              <form action = "/path" method = "post" enctype="multipart/form-data">
-                    <input type="file" name="file" />
-                    <input type = "submit" value="Upload">
+                    <input class="button" type="file" name="file" />
+                    <input type="submit" value="Upload">
              </form>
         </div>
         {% if paths_files %}
@@ -27,39 +27,12 @@
                     {% endfor %}
                 </ul>
                 <div class="buttons">
-                    <button class="button" onclick="goBack()">Back</button>
-                    <button class="button" onclick="goNext()">Next</button>
+                    <button class="button">Back</button>
+                    <button class="button">Next</button>
                 </div>
             </div>
         </div>
         {% endif %}
     </div>
-
-   <script>
-      // Function to show image based on item
-      function showImage(item) {
-         var imagesFolder = "{{ images_folder }}";
-         var imagePath = imagesFolder + '/' + item.toLowerCase() + '.jpg';
-         document.getElementById('selectedImage').src = imagePath;
-
-         // Remove the "selected" class from all list items
-         var listItems = document.getElementById('itemList').getElementsByTagName('li');
-         for (var i = 0; i < listItems.length; i++) {
-            listItems[i].classList.remove('selected');
-         }
-
-         // Add the "selected" class to the clicked list item
-         event.target.classList.add('selected');
-      }
-
-      // Set the initial state - highlight the first item and show its image
-      window.onload = function () {
-         var firstItem = document.getElementById('itemList').getElementsByTagName('li')[0];
-         if (firstItem) {
-            firstItem.click();
-         }
-      };
-   </script>
-
 </body>
 </html>
