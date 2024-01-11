@@ -8,6 +8,7 @@ class Tour(Base):
     __tablename__ = 'tour'
 
     id = Column(Integer, primary_key=True)
+    distance = Column(Float)
 
 
 class Path(Base):
