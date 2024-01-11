@@ -18,5 +18,4 @@ class Path(Base):
     count = Column(Integer)
     path_to_png = Column(String)
 
-    tour_id = Column(Integer, ForeignKey('path.id'))
-    tour = relationship('Tour', back_populates='paths')
+    tour_id = Column(Integer, ForeignKey('tour.id'))
