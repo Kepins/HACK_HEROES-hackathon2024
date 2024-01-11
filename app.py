@@ -78,6 +78,8 @@ def paths():
 @app.route('/paths/<id>', methods=['GET'])
 def pathsid(id):
     paths_files = db.query(Path.path_to_png).filter(Path.tour_id == id).all()
+    p_f = [paths_files[i][0] for i in range(0, len(paths_files))]
+    paths_files = p_f
     return render_template('index.html', paths_files=paths_files)
 
 
