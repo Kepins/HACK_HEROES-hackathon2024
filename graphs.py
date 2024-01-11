@@ -141,4 +141,3 @@ class Graph:
             sum += abs(to_node.x - from_node.x) + abs(to_node.y - from_node.y)
 
         return sum
-
