@@ -4,6 +4,7 @@ from graphs import Graph
 from magazine_map import MagazineMap
 from session import db
 
+
 def main():
     nodes, doors = generate_nodes()
     graph = Graph(nodes=nodes, doors=doors)
