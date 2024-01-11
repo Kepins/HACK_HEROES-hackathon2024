@@ -28,7 +28,7 @@ def paths():
             stream = io.StringIO(csv_file.stream.read().decode("UTF-8"), newline="")
             csv_data = pandas.read_csv(stream, )
 
-            tour = Tour()
+            tour = Tour(distance=0.0)
             db.add(tour)
             db.commit()
 
@@ -53,6 +53,8 @@ def paths():
                 path = graph.shortest_path(start=start_node, end=end_node)
                 start_node = end_node
 
+                tour.distance += graph.path_len(path)
+
                 png_path = os.path.join("static", str(tour.id), f"{path_obj.id}.png")
                 path_drawer.draw_path(real_points=[Point(n.x, n.y) for n in path], output_image_path=png_path)
 
@@ -66,11 +68,13 @@ def paths():
 
             end_node = list(filter(lambda n: (n.x==45 and n.y==11.5), nodes))[0]
             path = graph.shortest_path(start=start_node, end=end_node)
+            tour.distance += graph.path_len(path)
 
             png_path = os.path.join("static", str(tour.id), f"{path_obj.id}.png")
             path_drawer.draw_path(real_points=[Point(n.x, n.y) for n in path], output_image_path=png_path)
             path_obj.path_to_png = f'/{png_path}'
 
+            db.add(tour)
             db.add(path_obj)
             db.commit()
 
@@ -88,7 +92,9 @@ def pathsid(id):
     products = db.query(Path.pick_up).filter(Path.tour_id == id).all()
     products_number = db.query(Path.count).filter(Path.tour_id == id).all()
 
-    return render_template('index.html', paths_files=paths_files, products=products, products_number=products_number)
+    tour = db.query(Tour).filter(Tour.id == id).first()
+
+    return render_template('index.html', paths_files=paths_files, products=products, products_number=products_number, distance=tour.distance)
 
 
 if __name__ == '__main__':
