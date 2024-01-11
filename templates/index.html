@@ -10,15 +10,15 @@
 <body>
     <div class="container">
         <div id="fileUpload">
-            <form method="post" action="/">
-                <input type="file" id="fileInput" accept=".csv">
-                <button class="button" type="submit">Upload CSV</button>
-            </form>
+             <form action = "/path" method = "post" enctype="multipart/form-data">
+                    <input type="file" name="file" />
+                    <input type = "submit" value="Upload">
+             </form>
         </div>
-        {% if map_path and paths %}
+        {% if paths_files %}
         <div class="two-divs-container">
             <div id="leftColumn">
-                <img src="{{ map_path }}" alt="Map Paths" id="mapPaths", width="100%", height="100%">
+                <img src="{{ paths_files[0][0] }}" alt="Map Paths" id="mapPaths", width="100%", height="100%">
             </div>
             <div id="rightColumn">
                 <ul class="no-bullets">
